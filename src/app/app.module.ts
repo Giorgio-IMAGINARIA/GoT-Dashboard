@@ -12,6 +12,8 @@ import { PanelChartComponent } from './components/panelChart.component';
 import { DialogOverviewExampleDialog } from './components/dialogOverviewExampleDialog.component';
 // Directives
 // Services
+import { DbDataService } from './services/db.data.service';
+
 // External modules
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
@@ -29,7 +31,7 @@ import 'hammerjs';
     PanelChartComponent
   ],
   providers: [
-    // DialogOverviewExampleDialog
+    DbDataService
   ],
   bootstrap: [AppComponent]
 })
