@@ -30,8 +30,16 @@ export class DbDataService {
         console.log('db.data.service response')
         this.http.get('/db/data').subscribe((data: Response) => {
             try {
-                console.log('here is the elasticData from service: ',data.json().elasticDBArray );
-                this.setElasticDbState(data.json().elasticDBArray);
+                console.log('here is the elasticData from service: ', data.json().elasticDBArray);
+                let elasticArrayDownloaded = data.json().elasticDBArray;
+                for (let i = 0; i < elasticArrayDownloaded.length; i++) {
+                    console.log('single elements: ', elasticArrayDownloaded[i]._source);
+                    let objectToChange = elasticArrayDownloaded[i]._source;
+                    Object.defineProperty(objectToChange, 'timestamp', Object.getOwnPropertyDescriptor(objectToChange, '@timestamp'));
+                    delete objectToChange['@timestamp'];
+                }
+
+                this.setElasticDbState(elasticArrayDownloaded);
             }
             catch (err) {
                 console.log(err);
