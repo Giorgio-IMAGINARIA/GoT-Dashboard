@@ -14,6 +14,8 @@ import { DbDataService } from '../services/db.data.service';
 })
 export class PanelChartComponent implements OnInit {
 
+    invertRightSlider = true;
+
 
     folders = [
         {

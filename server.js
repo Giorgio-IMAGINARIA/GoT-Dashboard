@@ -1,7 +1,7 @@
 var elasticsearch = require('elasticsearch');
 var client = new elasticsearch.Client({
     host: 'ab-tools:9200',
-    httpAuth: 'elastic:changeme',
+    // httpAuth: 'elastic:changeme',
     log: 'trace'
 });
 // client.ping({

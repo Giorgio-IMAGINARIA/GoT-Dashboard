@@ -29,6 +29,69 @@
 </md-card-header>
 <!--<img md-card-image src="../../../public/img/shiba2.jpg">-->
 <md-card-content>
+
+    <div id="searchRow">
+        <md-input-container class="textSearchCell">
+            <input mdInput placeholder="Search">
+        </md-input-container>
+    </div>
+    <div id="searchRow">
+        <div class="timeSearchCell timeSearchCellLeft">
+            <p>Initial time search</p>
+            <md-slider></md-slider>
+            <div class="timeInputRow">
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="yyyy">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="MM">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="dd">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="HH">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="mm">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="ss">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="SSS">
+                </md-input-container>
+            </div>
+        </div>
+        <div class="timeSearchCell timeSearchCellRight">
+            <p>Final time search</p>
+            <md-slider [invert]="invertRightSlider"></md-slider>
+            <div class="timeInputRow">
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="yyyy">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="MM">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="dd">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="HH">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="mm">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="ss">
+                </md-input-container>
+                <md-input-container class="timeTextSearchCell">
+                    <input mdInput placeholder="SSS">
+                </md-input-container>
+            </div>
+        </div>
+    </div>
+
     <md-list>
         <h3 md-subheader>Gateways-events</h3>
         <md-list-item>

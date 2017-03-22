@@ -1,3 +1,29 @@
+.timeTextSearchCell{
+     flex-grow:1;
+}
+.timeSearchCellLeft{
+padding-right: 10%;
+}
+.timeSearchCellRight{
+padding-left: 10%;
+}
+.timeInputRow{
+    display:flex;
+}
+.timeSearchCell{
+    display:flex;
+    flex-direction: column;
+    width:50%;
+    justify-content: center;
+}
+.textSearchCell{
+    width:25%;
+}
+#searchRow{
+    display:flex;
+    justify-content: flex-end;
+    padding:16px;
+}
 .simple-button{
     background-color: transparent;
     cursor: pointer;
