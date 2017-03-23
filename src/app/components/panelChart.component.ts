@@ -13,7 +13,6 @@ import { DbDataService } from '../services/db.data.service';
     styleUrls: ['../styles/panelChart.component.css']
 })
 export class PanelChartComponent implements OnInit {
-    inputValue: number = null;
 
     leftYearValue: number = null;
     leftMonthValue: number = null;
@@ -84,8 +83,8 @@ export class PanelChartComponent implements OnInit {
     constructor(private DbDataService: DbDataService) { }
 
     checkDate(percentage: number, slider: string): void {
-        console.log('Slider Value: ', percentage);
-        console.log('the items are: ', this.items);
+        // console.log('Slider Value: ', percentage);
+        // console.log('the items are: ', this.items);
         let dateArray = [];
         for (let i = 0; i < this.items.length; i++) {
             let tempDate = new Date(this.items[i]._source.timestamp);
@@ -98,79 +97,82 @@ export class PanelChartComponent implements OnInit {
         let differenceMilliseconds = currentDateMilliseconds - minimumTimeMilliseconds;
         let halfDifferenceTime = differenceMilliseconds / 2;
         let percentageTime = (halfDifferenceTime * percentage) / 100;
-        console.log('the array of dates is: ', dateArray);
-        console.log('The minimum value is: ', minimumTimeMilliseconds);
-        console.log('The maximum value is now and it is: ', currentDateMilliseconds);
+        // console.log('the array of dates is: ', dateArray);
+        // console.log('The minimum value is: ', minimumTimeMilliseconds);
+        // console.log('The maximum value is now and it is: ', currentDateMilliseconds);
         switch (slider) {
             case 'left':
                 {
+                    // console.log('left percentageTime: ', percentageTime, '; Floor percentageTime: ', Math.floor(percentageTime));
                     let timeSelected = minimumTimeMilliseconds + Math.floor(percentageTime);
-                    console.log('The time selected is: ', timeSelected);
+                    // console.log('The time selected is: ', timeSelected);
                     let timeSelectedDate = new Date(timeSelected);
-                    console.log('The time selected date is: ', timeSelectedDate);
+                    // console.log('The time selected date is: ', timeSelectedDate);
 
                     let timeselectedYear = timeSelectedDate.getFullYear();
                     this.leftYearValue = timeselectedYear;
-                    console.log('the year is: ', timeselectedYear);
+                    // console.log('the year is: ', timeselectedYear);
 
                     let timeselectedMonth = timeSelectedDate.getMonth() + 1;
                     this.leftMonthValue = timeselectedMonth;
-                    console.log('the month is: ', timeselectedMonth);
+                    // console.log('the month is: ', timeselectedMonth);
 
                     let timeselectedDayInMonth = timeSelectedDate.getDate();
                     this.leftDayValue = timeselectedDayInMonth;
-                    console.log('the day in Month is: ', timeselectedDayInMonth);
+                    // console.log('the day in Month is: ', timeselectedDayInMonth);
 
                     let timeselectedHour = timeSelectedDate.getHours();
                     this.leftHourValue = timeselectedHour;
-                    console.log('the hour is: ', timeselectedHour);
+                    // console.log('the hour is: ', timeselectedHour);
 
                     let timeselectedMinute = timeSelectedDate.getMinutes();
                     this.leftMinuteValue = timeselectedMinute;
-                    console.log('the minute is: ', timeselectedMinute);
+                    // console.log('the minute is: ', timeselectedMinute);
 
                     let timeselectedSecond = timeSelectedDate.getSeconds();
                     this.leftSecondValue = timeselectedSecond;
-                    console.log('the second is: ', timeselectedSecond);
+                    // console.log('the second is: ', timeselectedSecond);
 
                     let timeselectedMillisecond = timeSelectedDate.getMilliseconds();
                     this.leftMillisecondValue = timeselectedMillisecond;
-                    console.log('the millisecond is: ', timeselectedMillisecond);
+                    // console.log('the millisecond is: ', timeselectedMillisecond);
                 }
                 break;
             case 'right':
                 {
+                    // console.log('right percentageTime: ', percentageTime, '; Ceil percentageTime: ', Math.ceil(percentageTime));
+                    
                     let timeSelected = currentDateMilliseconds - Math.floor(percentageTime);
-                    console.log('The time selected is: ', timeSelected);
+                    // console.log('The time selected is: ', timeSelected);
                     let timeSelectedDate = new Date(timeSelected);
-                    console.log('The time selected date is: ', timeSelectedDate);
+                    // console.log('The time selected date is: ', timeSelectedDate);
                     let timeselectedYear = timeSelectedDate.getFullYear();
                     this.rightYearValue = timeselectedYear;
-                    console.log('the year is: ', timeselectedYear);
+                    // console.log('the year is: ', timeselectedYear);
 
                     let timeselectedMonth = timeSelectedDate.getMonth() + 1;
                     this.rightMonthValue = timeselectedMonth;
-                    console.log('the month is: ', timeselectedMonth);
+                    // console.log('the month is: ', timeselectedMonth);
 
                     let timeselectedDayInMonth = timeSelectedDate.getDate();
                     this.rightDayValue = timeselectedDayInMonth;
-                    console.log('the day in Month is: ', timeselectedDayInMonth);
+                    // console.log('the day in Month is: ', timeselectedDayInMonth);
 
                     let timeselectedHour = timeSelectedDate.getHours();
                     this.rightHourValue = timeselectedHour;
-                    console.log('the hour is: ', timeselectedHour);
+                    // console.log('the hour is: ', timeselectedHour);
 
                     let timeselectedMinute = timeSelectedDate.getMinutes();
                     this.rightMinuteValue = timeselectedMinute;
-                    console.log('the minute is: ', timeselectedMinute);
+                    // console.log('the minute is: ', timeselectedMinute);
 
                     let timeselectedSecond = timeSelectedDate.getSeconds();
                     this.rightSecondValue = timeselectedSecond;
-                    console.log('the second is: ', timeselectedSecond);
+                    // console.log('the second is: ', timeselectedSecond);
 
                     let timeselectedMillisecond = timeSelectedDate.getMilliseconds();
                     this.rightMillisecondValue = timeselectedMillisecond;
-                    console.log('the millisecond is: ', timeselectedMillisecond);
+                    // console.log('the millisecond is: ', timeselectedMillisecond);
                 }
                 break;
             default:
@@ -180,8 +182,10 @@ export class PanelChartComponent implements OnInit {
 
     testLeftSlider(event: any) {
         if (event.value !== 0) {
-            this.inputValue = event.value;
             this.checkDate(event.value, 'left');
+            if (this.rightValue !== 0) {
+                this.checkDate(this.rightValue, 'right');
+            }
         } else {
             this.leftYearValue = null;
             this.leftMonthValue = null;
@@ -195,8 +199,10 @@ export class PanelChartComponent implements OnInit {
 
     testRightSlider(event: any) {
         if (event.value !== 0) {
-            this.inputValue = event.value;
             this.checkDate(event.value, 'right');
+             if (this.leftValue !== 0) {
+                this.checkDate(this.leftValue, 'left');
+            }
         } else {
             this.rightYearValue = null;
             this.rightMonthValue = null;
