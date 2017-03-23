@@ -38,55 +38,55 @@
     <div id="searchRow">
         <div class="timeSearchCell timeSearchCellLeft">
             <p>Initial time search</p>
-            <md-slider (input)=testSlider() [value]="leftValue"></md-slider>
+            <md-slider [(ngModel)]="leftValue" (input)=testLeftSlider($event) [value]="leftValue"></md-slider>
             <div class="timeInputRow">
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="yyyy">
+                    <input [(ngModel)]="leftYearValue" mdInput placeholder="yyyy">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="MM">
+                    <input [(ngModel)]="leftMonthValue" mdInput placeholder="MM">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="dd">
+                    <input [(ngModel)]="leftDayValue" mdInput placeholder="dd">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="HH">
+                    <input [(ngModel)]="leftHourValue" mdInput placeholder="HH">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="mm">
+                    <input [(ngModel)]="leftMinuteValue" mdInput placeholder="mm">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="ss">
+                    <input [(ngModel)]="leftSecondValue" mdInput placeholder="ss">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="SSS">
+                    <input [(ngModel)]="leftMillisecondValue" mdInput placeholder="SSS">
                 </md-input-container>
             </div>
         </div>
         <div class="timeSearchCell timeSearchCellRight">
             <p>Final time search</p>
-            <md-slider [invert]="invertRightSlider" [value]="leftValue"></md-slider>
+            <md-slider [invert]="invertRightSlider" [(ngModel)]="rightValue" (input)=testRightSlider($event) [value]="rightValue"></md-slider>
             <div class="timeInputRow">
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="yyyy">
+                    <input [(ngModel)]="rightYearValue" mdInput placeholder="yyyy">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="MM">
+                    <input [(ngModel)]="rightMonthValue" mdInput placeholder="MM">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="dd">
+                    <input [(ngModel)]="rightDayValue" mdInput placeholder="dd">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="HH">
+                    <input [(ngModel)]="rightHourValue" mdInput placeholder="HH">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="mm">
+                    <input [(ngModel)]="rightMinuteValue" mdInput placeholder="mm">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="ss">
+                    <input [(ngModel)]="rightSecondValue" mdInput placeholder="ss">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input mdInput placeholder="SSS">
+                    <input [(ngModel)]="rightMillisecondValue" mdInput placeholder="SSS">
                 </md-input-container>
             </div>
         </div>
