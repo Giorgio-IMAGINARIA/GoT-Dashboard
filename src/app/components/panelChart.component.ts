@@ -13,6 +13,8 @@ import { DbDataService } from '../services/db.data.service';
     styleUrls: ['../styles/panelChart.component.css']
 })
 export class PanelChartComponent implements OnInit {
+    leftValue = 0;
+    rightValue = 0;
 
     invertRightSlider = true;
 
@@ -62,6 +64,9 @@ export class PanelChartComponent implements OnInit {
 
 
     constructor(private DbDataService: DbDataService) { }
+    testSlider(){
+        console.log('abbra');
+    }
     ngOnInit() {
         this.DbDataService.sendRequest();
         this.checkElasticDbService();

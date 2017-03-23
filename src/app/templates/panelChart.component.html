@@ -38,7 +38,7 @@
     <div id="searchRow">
         <div class="timeSearchCell timeSearchCellLeft">
             <p>Initial time search</p>
-            <md-slider></md-slider>
+            <md-slider (input)=testSlider() [value]="leftValue"></md-slider>
             <div class="timeInputRow">
                 <md-input-container class="timeTextSearchCell">
                     <input mdInput placeholder="yyyy">
@@ -65,7 +65,7 @@
         </div>
         <div class="timeSearchCell timeSearchCellRight">
             <p>Final time search</p>
-            <md-slider [invert]="invertRightSlider"></md-slider>
+            <md-slider [invert]="invertRightSlider" [value]="leftValue"></md-slider>
             <div class="timeInputRow">
                 <md-input-container class="timeTextSearchCell">
                     <input mdInput placeholder="yyyy">
