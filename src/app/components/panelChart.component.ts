@@ -81,6 +81,15 @@ export class PanelChartComponent implements OnInit {
 
 
     constructor(private DbDataService: DbDataService) { }
+    saveInput(event: any): void {
+        console.log('old field value left minutes: ', event.target.value);
+    }
+    onInputChange(event: any) {
+        // console.log('keyup event: ', event.target.value);
+        setTimeout(function (par: number): void {
+            console.log('value to write after time: ', par);
+        }, 2000, this.leftMinuteValue);
+    }
 
     checkDate(percentage: number, slider: string): void {
         // console.log('Slider Value: ', percentage);
@@ -141,7 +150,7 @@ export class PanelChartComponent implements OnInit {
             case 'right':
                 {
                     // console.log('right percentageTime: ', percentageTime, '; Ceil percentageTime: ', Math.ceil(percentageTime));
-                    
+
                     let timeSelected = currentDateMilliseconds - Math.floor(percentageTime);
                     // console.log('The time selected is: ', timeSelected);
                     let timeSelectedDate = new Date(timeSelected);
@@ -200,7 +209,7 @@ export class PanelChartComponent implements OnInit {
     testRightSlider(event: any) {
         if (event.value !== 0) {
             this.checkDate(event.value, 'right');
-             if (this.leftValue !== 0) {
+            if (this.leftValue !== 0) {
                 this.checkDate(this.leftValue, 'left');
             }
         } else {

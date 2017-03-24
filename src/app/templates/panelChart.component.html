@@ -53,7 +53,7 @@
                     <input [(ngModel)]="leftHourValue" mdInput placeholder="HH">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="leftMinuteValue" mdInput placeholder="mm">
+                    <input (keydown)="saveInput($event)" (keyup)="onInputChange($event)" [(ngModel)]="leftMinuteValue" mdInput placeholder="mm">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
                     <input [(ngModel)]="leftSecondValue" mdInput placeholder="ss">
