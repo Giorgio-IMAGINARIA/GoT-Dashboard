@@ -14,6 +14,9 @@ import { DbDataService } from '../services/db.data.service';
 })
 export class PanelChartComponent implements OnInit {
 
+    minimumTimeLimit: number = null;
+    maximumTimeLimit: number = null;
+
     leftYearValue: number = null;
     leftMonthValue: number = null;
     leftDayValue: number = null;
@@ -78,6 +81,8 @@ export class PanelChartComponent implements OnInit {
 
     private elasticDBServiceListener: any;
     private items: Array<any> = null;
+    private unfilteredItems: Array<any> = null;
+    // private toServeItems: Array<any> = null;
 
 
     constructor(private DbDataService: DbDataService) { }
@@ -95,12 +100,13 @@ export class PanelChartComponent implements OnInit {
         // console.log('Slider Value: ', percentage);
         // console.log('the items are: ', this.items);
         let dateArray = [];
-        for (let i = 0; i < this.items.length; i++) {
-            let tempDate = new Date(this.items[i]._source.timestamp);
+        for (let i = 0; i < this.unfilteredItems.length; i++) {
+            let tempDate = new Date(this.unfilteredItems[i]._source.timestamp);
             var tempDateMilliseconds = tempDate.getTime();
-            dateArray[i] = tempDateMilliseconds;
+            dateArray.push(tempDateMilliseconds);
         }
         let minimumTimeMilliseconds = Math.min(...dateArray);
+        console.log('minimumTimeMilliseconds', minimumTimeMilliseconds);
         let currentTime = new Date();
         let currentDateMilliseconds = currentTime.getTime();
         let differenceMilliseconds = currentDateMilliseconds - minimumTimeMilliseconds;
@@ -114,6 +120,7 @@ export class PanelChartComponent implements OnInit {
                 {
                     // console.log('left percentageTime: ', percentageTime, '; Floor percentageTime: ', Math.floor(percentageTime));
                     let timeSelected = minimumTimeMilliseconds + Math.floor(percentageTime);
+                    this.minimumTimeLimit = timeSelected;
                     // console.log('The time selected is: ', timeSelected);
                     let timeSelectedDate = new Date(timeSelected);
                     // console.log('The time selected date is: ', timeSelectedDate);
@@ -150,9 +157,10 @@ export class PanelChartComponent implements OnInit {
             case 'right':
                 {
                     // console.log('right percentageTime: ', percentageTime, '; Ceil percentageTime: ', Math.ceil(percentageTime));
-
                     let timeSelected = currentDateMilliseconds - Math.floor(percentageTime);
+                    this.maximumTimeLimit = timeSelected;
                     // console.log('The time selected is: ', timeSelected);
+
                     let timeSelectedDate = new Date(timeSelected);
                     // console.log('The time selected date is: ', timeSelectedDate);
                     let timeselectedYear = timeSelectedDate.getFullYear();
@@ -187,15 +195,17 @@ export class PanelChartComponent implements OnInit {
             default:
                 throw "error in slider case";
         }
+        console.log('Minimumtimelimit: ', this.minimumTimeLimit, ';MaximumtimeLimit: ', this.maximumTimeLimit);
     }
 
-    testLeftSlider(event: any) {
+    moveLeftSlider(event: any) {
         if (event.value !== 0) {
             this.checkDate(event.value, 'left');
             if (this.rightValue !== 0) {
                 this.checkDate(this.rightValue, 'right');
             }
         } else {
+            this.minimumTimeLimit = null;
             this.leftYearValue = null;
             this.leftMonthValue = null;
             this.leftDayValue = null;
@@ -204,15 +214,17 @@ export class PanelChartComponent implements OnInit {
             this.leftSecondValue = null;
             this.leftMillisecondValue = null;
         }
+        this.filterItems(this.unfilteredItems);
     }
 
-    testRightSlider(event: any) {
+    moveRightSlider(event: any) {
         if (event.value !== 0) {
             this.checkDate(event.value, 'right');
             if (this.leftValue !== 0) {
                 this.checkDate(this.leftValue, 'left');
             }
         } else {
+            this.maximumTimeLimit = null;
             this.rightYearValue = null;
             this.rightMonthValue = null;
             this.rightDayValue = null;
@@ -221,6 +233,7 @@ export class PanelChartComponent implements OnInit {
             this.rightSecondValue = null;
             this.rightMillisecondValue = null;
         }
+        this.filterItems(this.unfilteredItems);
     }
 
 
@@ -231,12 +244,54 @@ export class PanelChartComponent implements OnInit {
     ngOnDestroy(): void {
         this.elasticDBServiceListener.unsubscribe();
     }
+    private filterItems(unfilteredArray: Array<any>): void {
+
+
+        if (!(this.minimumTimeLimit === null && this.maximumTimeLimit === null)) {
+            this.items = [];
+            for (let i = 0; i < unfilteredArray.length; i++) {
+
+
+                let tempDate = new Date(unfilteredArray[i]._source.timestamp);
+                var tempDateMilliseconds = tempDate.getTime();
+                console.log('Timestamp unfiltered items: ', tempDateMilliseconds);
+
+
+                if (this.minimumTimeLimit === null) {
+                    if (tempDateMilliseconds <= this.maximumTimeLimit) {
+                        this.items.push(unfilteredArray[i]);
+                    }
+                } else if (this.maximumTimeLimit === null) {
+                    if (tempDateMilliseconds >= this.minimumTimeLimit) {
+                         this.items.push(unfilteredArray[i]);
+                    }
+                } else {
+                    if (((tempDateMilliseconds > this.minimumTimeLimit) && (tempDateMilliseconds < this.minimumTimeLimit)) || (tempDateMilliseconds === this.minimumTimeLimit) || (tempDateMilliseconds === this.maximumTimeLimit)) {
+                         this.items.push(unfilteredArray[i]);
+                    }
+                }
+                // this.items[i] = unfilteredArray[i];
+
+
+
+
+            }
+        } else {
+            this.items = unfilteredArray;
+        }
+
+
+    }
+    private updateUnfilteredItems(unfilteredArray: Array<any>): void {
+        this.unfilteredItems = unfilteredArray;
+    }
     private checkElasticDbService(): void {
         this.elasticDBServiceListener = this.DbDataService.activeElasticDbStateSubject.subscribe(
             response => {
                 if (response) {
                     console.log('the response for the elastic objects is abrustag: ', response);
-                    this.items = response;
+                    this.updateUnfilteredItems(response);
+                    this.filterItems(response);
                 } else {
                     console.log('no response for the elastic objects');
                 }

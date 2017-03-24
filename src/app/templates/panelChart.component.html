@@ -38,7 +38,7 @@
     <div id="searchRow">
         <div class="timeSearchCell timeSearchCellLeft">
             <p>Initial time search</p>
-            <md-slider [(ngModel)]="leftValue" (input)=testLeftSlider($event) [value]="leftValue"></md-slider>
+            <md-slider [(ngModel)]="leftValue" (input)=moveLeftSlider($event) [value]="leftValue"></md-slider>
             <div class="timeInputRow">
                 <md-input-container class="timeTextSearchCell">
                     <input [(ngModel)]="leftYearValue" mdInput placeholder="yyyy">
@@ -65,7 +65,7 @@
         </div>
         <div class="timeSearchCell timeSearchCellRight">
             <p>Final time search</p>
-            <md-slider [invert]="invertRightSlider" [(ngModel)]="rightValue" (input)=testRightSlider($event) [value]="rightValue"></md-slider>
+            <md-slider [invert]="invertRightSlider" [(ngModel)]="rightValue" (input)=moveRightSlider($event) [value]="rightValue"></md-slider>
             <div class="timeInputRow">
                 <md-input-container class="timeTextSearchCell">
                     <input [(ngModel)]="rightYearValue" mdInput placeholder="yyyy">
