@@ -42,7 +42,20 @@ app.get('/db/data', function (req, res) {
                     type: 'gateway',
                     body: {
                         query: {
-                            match_all: {}
+
+
+
+                            range: {
+                                "@timestamp": {
+                                    gte: "2017-02-28T14:58:38.000Z",
+                                    lt: "2017-03-03T14:58:38.000Z"
+                                }
+                            }
+
+
+
+
+                            // match_all: {}
                         }
                     }
                 }).then(function (resp) {

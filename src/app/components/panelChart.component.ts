@@ -106,7 +106,7 @@ export class PanelChartComponent implements OnInit {
             dateArray.push(tempDateMilliseconds);
         }
         let minimumTimeMilliseconds = Math.min(...dateArray);
-        console.log('minimumTimeMilliseconds', minimumTimeMilliseconds);
+        // console.log('minimumTimeMilliseconds', minimumTimeMilliseconds);
         let currentTime = new Date();
         let currentDateMilliseconds = currentTime.getTime();
         let differenceMilliseconds = currentDateMilliseconds - minimumTimeMilliseconds;
@@ -252,6 +252,10 @@ export class PanelChartComponent implements OnInit {
             for (let i = 0; i < unfilteredArray.length; i++) {
 
 
+
+
+
+
                 let tempDate = new Date(unfilteredArray[i]._source.timestamp);
                 var tempDateMilliseconds = tempDate.getTime();
                 console.log('Timestamp unfiltered items: ', tempDateMilliseconds);
@@ -263,14 +267,17 @@ export class PanelChartComponent implements OnInit {
                     }
                 } else if (this.maximumTimeLimit === null) {
                     if (tempDateMilliseconds >= this.minimumTimeLimit) {
-                         this.items.push(unfilteredArray[i]);
+                        this.items.push(unfilteredArray[i]);
                     }
                 } else {
-                    if (((tempDateMilliseconds > this.minimumTimeLimit) && (tempDateMilliseconds < this.minimumTimeLimit)) || (tempDateMilliseconds === this.minimumTimeLimit) || (tempDateMilliseconds === this.maximumTimeLimit)) {
-                         this.items.push(unfilteredArray[i]);
+                    console.log('abbraaaaaa');
+                    if (((tempDateMilliseconds >= this.minimumTimeLimit) && (tempDateMilliseconds <= this.maximumTimeLimit))) {
+                        this.items.push(unfilteredArray[i]);
                     }
                 }
-                // this.items[i] = unfilteredArray[i];
+
+
+
 
 
 
