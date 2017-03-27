@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 // interface DbWorksPropertiesInterface {
@@ -18,17 +18,33 @@ export class DbDataService {
     public currentElasticDbState: any = null;
     public activeElasticDbStateSubject: Subject<Array<any>> = new Subject<Array<any>>();
     public activeElasticDbStateObservable: Observable<Array<any>> = this.activeElasticDbStateSubject.asObservable();
-    constructor(private http: Http) { }
-
+    constructor(protected http: Http) { }
     private setElasticDbState(nextState: any): void {
         console.log('from the client ElasticDbService', nextState);
         this.currentElasticDbState = nextState;
         this.activeElasticDbStateSubject.next(nextState);
     }
 
-    sendRequest(): void {
-        console.log('db.data.service response')
-        this.http.get('/db/data').subscribe((data: Response) => {
+    sendRequest(filter: any): void {
+        console.log('db.data.service response');
+        let addressToPass: string = '/db/data';
+        // let addressToPass: string = null;
+        // if (filter.timeFilter.activated) {
+        //     addressToPass = '/db/datatime';
+        // } else {
+        //     addressToPass = '/db/dataall';
+        //     console.log('the adresssssssss')
+        // }
+
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let body = JSON.stringify(filter);
+        console.log('body:', body)
+        this.http.post(
+            addressToPass,
+            body,
+            options
+        ).subscribe((data: Response) => {
             try {
                 console.log('here is the elasticData from service: ', data.json().elasticDBArray);
                 let elasticArrayDownloaded = data.json().elasticDBArray;

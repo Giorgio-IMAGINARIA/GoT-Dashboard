@@ -31,32 +31,31 @@ app.use("/public", express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
 
-app.get('/db/data', function (req, res) {
+app.post('/db/data', function (req, res) {
     Promise.resolve(res)
         .then((res) => {
             return new Promise((resolve, reject) => {
-
-
+                console.log('req.body.timeFilter', req.body.timeFilter);
+                var queryToPass;
+                if (req.body.timeFilter.activated) {
+                    queryToPass = {
+                        range: {
+                            "@timestamp": {
+                                gte: "2017-02-28T14:58:38.000Z",
+                                lt: "2017-03-03T14:58:38.000Z"
+                            }
+                        }
+                    }
+                } else {
+                    queryToPass = {
+                        match_all: {}
+                    }
+                }
                 client.search({
                     index: 'blockchain-data-timestamp',
                     type: 'gateway',
                     body: {
-                        query: {
-
-
-
-                            range: {
-                                "@timestamp": {
-                                    gte: "2017-02-28T14:58:38.000Z",
-                                    lt: "2017-03-03T14:58:38.000Z"
-                                }
-                            }
-
-
-
-
-                            // match_all: {}
-                        }
+                        query: queryToPass
                     }
                 }).then(function (resp) {
                     var hits = resp.hits.hits;
@@ -68,39 +67,6 @@ app.get('/db/data', function (req, res) {
                     console.trace(err.message);
                     reject('there was an error in the DB: ' + err.message);
                 });
-
-
-
-            });
-        });
-});
-
-
-
-app.get('/db/projects', function (req, res) {
-    Promise.resolve(res)
-        .then((res) => {
-            return new Promise((resolve, reject) => {
-
-
-
-
-
-
-                currentCollection.find({}, function (err, cursor) {
-                    cursor.toArray(function (err, items) {
-                        if (err) {
-                            reject('there was an error in the DB: ' + err);
-                        } else {
-                            console.log('success: ', items);
-                            var projectsDBObject = { projectsDBArray: items };
-                            console.log('here are the projects');
-                            res.json(projectsDBObject);
-                        }
-                    });
-                });
-
-
 
 
 
