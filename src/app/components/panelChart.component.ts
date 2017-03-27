@@ -5,6 +5,8 @@ import { MdIconRegistry } from '@angular/material';
 import { MdDialog } from '@angular/material';
 //Services
 import { DbDataService } from '../services/db.data.service';
+//Libraries
+import * as _ from "lodash";
 
 
 @Component({
@@ -14,69 +16,31 @@ import { DbDataService } from '../services/db.data.service';
 })
 export class PanelChartComponent implements OnInit {
 
+    lastMinimumTimeMilliseconds: number = null;
+
     minimumTimeLimit: number = null;
     maximumTimeLimit: number = null;
 
-    leftYearValue: number = null;
-    leftMonthValue: number = null;
-    leftDayValue: number = null;
-    leftHourValue: number = null;
-    leftMinuteValue: number = null;
-    leftSecondValue: number = null;
-    leftMillisecondValue: number = null;
+    leftYearValue: string = null;
+    leftMonthValue: string = null;
+    leftDayValue: string = null;
+    leftHourValue: string = null;
+    leftMinuteValue: string = null;
+    leftSecondValue: string = null;
+    leftMillisecondValue: string = null;
 
-    rightYearValue: number = null;
-    rightMonthValue: number = null;
-    rightDayValue: number = null;
-    rightHourValue: number = null;
-    rightMinuteValue: number = null;
-    rightSecondValue: number = null;
-    rightMillisecondValue: number = null;
+    rightYearValue: string = null;
+    rightMonthValue: string = null;
+    rightDayValue: string = null;
+    rightHourValue: string = null;
+    rightMinuteValue: string = null;
+    rightSecondValue: string = null;
+    rightMillisecondValue: string = null;
 
     leftValue = 0;
     rightValue = 0;
 
     invertRightSlider = true;
-
-
-    // folders = [
-    //     {
-    //         name: 'S13740425614445',
-    //         timeStamp: '2017-02-17T14:58:38.000Z',
-    //         availableCapacity: 19,
-    //         bridges: 4,
-    //         channels: 20,
-    //         destinations: 1,
-    //         sipLines: 2,
-    //         city: "New York",
-    //         // updated: new Date('1/1/16'),
-    //         iconName: 'settings_input_svideo'
-    //     },
-    //     {
-    //         name: 'S13740425614445',
-    //         timeStamp: '2017-02-18T14:58:38.000Z',
-    //         availableCapacity: 46,
-    //         bridges: 7,
-    //         channels: 50,
-    //         destinations: 4,
-    //         sipLines: 8,
-    //         city: "New York",
-    //         // updated: new Date('1/17/16'),
-    //         iconName: 'device_hub'
-    //     },
-    //     {
-    //         name: 'S13740425614445',
-    //         timeStamp: '2017-02-15T14:58:38.000Z',
-    //         availableCapacity: 111,
-    //         bridges: 19,
-    //         channels: 120,
-    //         destinations: 9,
-    //         sipLines: 28,
-    //         city: "London",
-    //         // updated: new Date('1/28/16'),
-    //         iconName: 'linear_scale'
-    //     }
-    // ];
 
 
     private elasticDBServiceListener: any;
@@ -103,24 +67,37 @@ export class PanelChartComponent implements OnInit {
     }
 
     checkDate(percentage: number, slider: string): void {
-        // console.log('Slider Value: ', percentage);
-        // console.log('the items are: ', this.items);
-        let dateArray = [];
-        for (let i = 0; i < this.items.length; i++) {
-            let tempDate = new Date(this.items[i]._source.timestamp);
-            var tempDateMilliseconds = tempDate.getTime();
-            dateArray.push(tempDateMilliseconds);
-        }
-        let minimumTimeMilliseconds = Math.min(...dateArray);
-        // console.log('minimumTimeMilliseconds', minimumTimeMilliseconds);
+        console.log('percentage: ', percentage);
+
+        let minimumTimeMilliseconds: number;
+
+        // if (!_.isEmpty(this.items)) {
+        //     let dateArray = [];
+        //     for (let i = 0; i < this.items.length; i++) {
+        //         let tempDate = new Date(this.items[i]._source.timestamp);
+        //         var tempDateMilliseconds = tempDate.getTime();
+        //         dateArray.push(tempDateMilliseconds);
+        //     }
+        //     minimumTimeMilliseconds = Math.min(...dateArray);
+        //     this.lastMinimumTimeMilliseconds = minimumTimeMilliseconds;
+        // } else {
+        //     minimumTimeMilliseconds = this.lastMinimumTimeMilliseconds;
+        // }
+
+
+
         let currentTime = new Date();
         let currentDateMilliseconds = currentTime.getTime();
+        // 2 months ago below
+        let tempMinTimeMonthAgo = currentDateMilliseconds - 15778476000;
+        minimumTimeMilliseconds = tempMinTimeMonthAgo;
+
+
+
+
         let differenceMilliseconds = currentDateMilliseconds - minimumTimeMilliseconds;
         let halfDifferenceTime = differenceMilliseconds / 2;
         let percentageTime = (halfDifferenceTime * percentage) / 100;
-        // console.log('the array of dates is: ', dateArray);
-        // console.log('The minimum value is: ', minimumTimeMilliseconds);
-        // console.log('The maximum value is now and it is: ', currentDateMilliseconds);
         switch (slider) {
             case 'left':
                 {
@@ -132,31 +109,31 @@ export class PanelChartComponent implements OnInit {
                     // console.log('The time selected date is: ', timeSelectedDate);
 
                     let timeselectedYear = timeSelectedDate.getFullYear();
-                    this.leftYearValue = timeselectedYear;
+                    this.leftYearValue = timeselectedYear.toString();
                     // console.log('the year is: ', timeselectedYear);
 
                     let timeselectedMonth = timeSelectedDate.getMonth() + 1;
-                    this.leftMonthValue = timeselectedMonth;
+                    this.leftMonthValue = ("0" + timeselectedMonth.toString()).slice(-2);
                     // console.log('the month is: ', timeselectedMonth);
 
                     let timeselectedDayInMonth = timeSelectedDate.getDate();
-                    this.leftDayValue = timeselectedDayInMonth;
+                    this.leftDayValue = ("0" + timeselectedDayInMonth.toString()).slice(-2);
                     // console.log('the day in Month is: ', timeselectedDayInMonth);
 
                     let timeselectedHour = timeSelectedDate.getHours();
-                    this.leftHourValue = timeselectedHour;
+                    this.leftHourValue = ("0" + timeselectedHour.toString()).slice(-2);
                     // console.log('the hour is: ', timeselectedHour);
 
                     let timeselectedMinute = timeSelectedDate.getMinutes();
-                    this.leftMinuteValue = timeselectedMinute;
+                    this.leftMinuteValue = ("0" + timeselectedMinute.toString()).slice(-2);
                     // console.log('the minute is: ', timeselectedMinute);
 
                     let timeselectedSecond = timeSelectedDate.getSeconds();
-                    this.leftSecondValue = timeselectedSecond;
+                    this.leftSecondValue = ("0" + timeselectedSecond.toString()).slice(-2);
                     // console.log('the second is: ', timeselectedSecond);
 
                     let timeselectedMillisecond = timeSelectedDate.getMilliseconds();
-                    this.leftMillisecondValue = timeselectedMillisecond;
+                    this.leftMillisecondValue = ("00" + timeselectedMillisecond.toString()).slice(-3);
                     // console.log('the millisecond is: ', timeselectedMillisecond);
                 }
                 break;
@@ -170,31 +147,31 @@ export class PanelChartComponent implements OnInit {
                     let timeSelectedDate = new Date(timeSelected);
                     // console.log('The time selected date is: ', timeSelectedDate);
                     let timeselectedYear = timeSelectedDate.getFullYear();
-                    this.rightYearValue = timeselectedYear;
+                    this.rightYearValue = timeselectedYear.toString();
                     // console.log('the year is: ', timeselectedYear);
 
                     let timeselectedMonth = timeSelectedDate.getMonth() + 1;
-                    this.rightMonthValue = timeselectedMonth;
+                    this.rightMonthValue = ("0" + timeselectedMonth.toString()).slice(-2);
                     // console.log('the month is: ', timeselectedMonth);
 
                     let timeselectedDayInMonth = timeSelectedDate.getDate();
-                    this.rightDayValue = timeselectedDayInMonth;
+                    this.rightDayValue = ("0" + timeselectedDayInMonth.toString()).slice(-2);
                     // console.log('the day in Month is: ', timeselectedDayInMonth);
 
                     let timeselectedHour = timeSelectedDate.getHours();
-                    this.rightHourValue = timeselectedHour;
+                    this.rightHourValue = ("0" + timeselectedHour.toString()).slice(-2);
                     // console.log('the hour is: ', timeselectedHour);
 
                     let timeselectedMinute = timeSelectedDate.getMinutes();
-                    this.rightMinuteValue = timeselectedMinute;
+                    this.rightMinuteValue = ("0" + timeselectedMinute.toString()).slice(-2);
                     // console.log('the minute is: ', timeselectedMinute);
 
                     let timeselectedSecond = timeSelectedDate.getSeconds();
-                    this.rightSecondValue = timeselectedSecond;
+                    this.rightSecondValue = ("0" + timeselectedSecond.toString()).slice(-2);
                     // console.log('the second is: ', timeselectedSecond);
 
                     let timeselectedMillisecond = timeSelectedDate.getMilliseconds();
-                    this.rightMillisecondValue = timeselectedMillisecond;
+                    this.rightMillisecondValue = ("00" + timeselectedMillisecond.toString()).slice(-3);
                     // console.log('the millisecond is: ', timeselectedMillisecond);
                 }
                 break;
@@ -202,6 +179,8 @@ export class PanelChartComponent implements OnInit {
                 throw "error in slider case";
         }
         console.log('Minimumtimelimit: ', this.minimumTimeLimit, ';MaximumtimeLimit: ', this.maximumTimeLimit);
+
+
     }
 
     moveLeftSlider(event: any) {
@@ -256,37 +235,14 @@ export class PanelChartComponent implements OnInit {
             let minimumTimeLimitString: string;
             if (this.minimumTimeLimit === null) {
                 this.filter.timeFilter.startTime = null;
-                this.filter.timeFilter.endTime = this.rightYearValue + '-' + this.rightMonthValue + '-' + this.rightDayValue + 'T' + this.rightHourValue + ':' + this.rightMinuteValue + ':' + this.rightSecondValue + ':' + this.rightMillisecondValue + 'Z';
+                this.filter.timeFilter.endTime = this.rightYearValue + '-' + this.rightMonthValue + '-' + this.rightDayValue + 'T' + this.rightHourValue + ':' + this.rightMinuteValue + ':' + this.rightSecondValue + '.' + this.rightMillisecondValue + 'Z';
             } else if (this.maximumTimeLimit === null) {
-                this.filter.timeFilter.startTime = this.leftYearValue + '-' + this.leftMonthValue + '-' + this.leftDayValue + 'T' + this.leftHourValue + ':' + this.leftMinuteValue + ':' + this.leftSecondValue + ':' + this.leftMillisecondValue + 'Z';
+                this.filter.timeFilter.startTime = this.leftYearValue + '-' + this.leftMonthValue + '-' + this.leftDayValue + 'T' + this.leftHourValue + ':' + this.leftMinuteValue + ':' + this.leftSecondValue + '.' + this.leftMillisecondValue + 'Z';
                 this.filter.timeFilter.endTime = null;
             } else {
-                this.filter.timeFilter.startTime = this.leftYearValue + '-' + this.leftMonthValue + '-' + this.leftDayValue + 'T' + this.leftHourValue + ':' + this.leftMinuteValue + ':' + this.leftSecondValue + ':' + this.leftMillisecondValue + 'Z';
-                this.filter.timeFilter.endTime = this.rightYearValue + '-' + this.rightMonthValue + '-' + this.rightDayValue + 'T' + this.rightHourValue + ':' + this.rightMinuteValue + ':' + this.rightSecondValue + ':' + this.rightMillisecondValue + 'Z';
+                this.filter.timeFilter.startTime = this.leftYearValue + '-' + this.leftMonthValue + '-' + this.leftDayValue + 'T' + this.leftHourValue + ':' + this.leftMinuteValue + ':' + this.leftSecondValue + '.' + this.leftMillisecondValue + 'Z';
+                this.filter.timeFilter.endTime = this.rightYearValue + '-' + this.rightMonthValue + '-' + this.rightDayValue + 'T' + this.rightHourValue + ':' + this.rightMinuteValue + ':' + this.rightSecondValue + '.' + this.rightMillisecondValue + 'Z';
             }
-
-            // this.items = [];
-            // for (let i = 0; i < unfilteredArray.length; i++) {
-            //     let tempDate = new Date(unfilteredArray[i]._source.timestamp);
-            //     var tempDateMilliseconds = tempDate.getTime();
-            //     console.log('Timestamp unfiltered items: ', tempDateMilliseconds);
-
-
-            //     if (this.minimumTimeLimit === null) {
-            //         if (tempDateMilliseconds <= this.maximumTimeLimit) {
-            //             this.items.push(unfilteredArray[i]);
-            //         }
-            //     } else if (this.maximumTimeLimit === null) {
-            //         if (tempDateMilliseconds >= this.minimumTimeLimit) {
-            //             this.items.push(unfilteredArray[i]);
-            //         }
-            //     } else {
-            //         console.log('abbraaaaaa');
-            //         if (((tempDateMilliseconds >= this.minimumTimeLimit) && (tempDateMilliseconds <= this.maximumTimeLimit))) {
-            //             this.items.push(unfilteredArray[i]);
-            //         }
-            //     }
-            // }
         } else {
             this.filter.timeFilter.activated = false;
             this.filter.timeFilter.startTime = null;
@@ -304,8 +260,6 @@ export class PanelChartComponent implements OnInit {
                 if (response) {
                     console.log('the response for the elastic objects is abrustag: ', response);
                     this.items = response;
-                    // this.updateUnfilteredItems(response);
-                    // this.filterItems(response);
                 } else {
                     console.log('no response for the elastic objects');
                 }

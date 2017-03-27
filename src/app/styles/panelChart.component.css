@@ -7,6 +7,7 @@ padding-right: 10%;
 .timeSearchCellRight{
 padding-left: 10%;
 }
+
 .timeInputRow{
     display:flex;
 }
@@ -19,10 +20,24 @@ padding-left: 10%;
 .textSearchCell{
     width:25%;
 }
-#searchRow{
-    display:flex;
-    justify-content: flex-end;
+.searchRow, #timeSelectorRow{
     padding:16px;
+    display:flex;
+}
+.searchRow{
+    justify-content: flex-end;
+}
+#timeSelectorRow{
+    justify-content: flex-start;
+    height:50px;
+        align-items: flex-end;
+}
+#timeSelectorTitle{
+    margin:0;
+    padding-right:40px;
+}
+md-radio-group > md-radio-button:not(:last-child){
+    padding-right:20px;
 }
 .simple-button{
     background-color: transparent;

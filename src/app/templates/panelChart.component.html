@@ -30,12 +30,21 @@
 <!--<img md-card-image src="../../../public/img/shiba2.jpg">-->
 <md-card-content>
 
-    <div id="searchRow">
+    <div class="searchRow">
         <md-input-container class="textSearchCell">
             <input mdInput placeholder="Search">
         </md-input-container>
     </div>
-    <div id="searchRow">
+    <div id="timeSelectorRow" class="searchRow">
+        <p id="timeSelectorTitle">Initial Time limit:</p>
+        <md-radio-group>
+            <md-radio-button value="1">1 H</md-radio-button>
+            <md-radio-button value="2">1 W</md-radio-button>
+            <md-radio-button value="3">1 M</md-radio-button>
+            <md-radio-button checked="true" value="4">6 M</md-radio-button>
+        </md-radio-group>
+    </div>
+    <div class="searchRow">
         <div class="timeSearchCell timeSearchCellLeft">
             <p>Initial time search</p>
             <md-slider [(ngModel)]="leftValue" (input)=moveLeftSlider($event) [value]="leftValue"></md-slider>

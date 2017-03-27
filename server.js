@@ -38,12 +38,25 @@ app.post('/db/data', function (req, res) {
                 console.log('req.body.timeFilter', req.body.timeFilter);
                 var queryToPass;
                 if (req.body.timeFilter.activated) {
+                    var timestampToPass;
+                    if (!req.body.timeFilter.startTime) {
+                        timestampToPass = {
+                            lt: req.body.timeFilter.endTime
+                        }
+                    } else if (!req.body.timeFilter.endTime) {
+                        console.log('req.body.timeFilter.startTime: ', req.body.timeFilter.startTime);
+                        timestampToPass = {
+                            gte: req.body.timeFilter.startTime
+                        }
+                    } else {
+                        timestampToPass = {
+                            gte: req.body.timeFilter.startTime,
+                            lt: req.body.timeFilter.endTime
+                        }
+                    }
                     queryToPass = {
                         range: {
-                            "@timestamp": {
-                                gte: "2017-02-28T14:58:38.000Z",
-                                lt: "2017-03-03T14:58:38.000Z"
-                            }
+                            "@timestamp": timestampToPass
                         }
                     }
                 } else {

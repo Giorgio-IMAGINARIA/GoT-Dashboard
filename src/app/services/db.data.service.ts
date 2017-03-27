@@ -28,14 +28,6 @@ export class DbDataService {
     sendRequest(filter: any): void {
         console.log('db.data.service response');
         let addressToPass: string = '/db/data';
-        // let addressToPass: string = null;
-        // if (filter.timeFilter.activated) {
-        //     addressToPass = '/db/datatime';
-        // } else {
-        //     addressToPass = '/db/dataall';
-        //     console.log('the adresssssssss')
-        // }
-
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let body = JSON.stringify(filter);
