@@ -37,8 +37,8 @@ app.post('/db/data', function (req, res) {
             return new Promise((resolve, reject) => {
                 console.log('req.body.timeFilter', req.body.timeFilter);
                 var queryToPass;
-                if (req.body.timeFilter.activated) {
-                    var timestampToPass;
+
+                 var timestampToPass;
                     if (!req.body.timeFilter.startTime) {
                         timestampToPass = {
                             lt: req.body.timeFilter.endTime
@@ -59,11 +59,14 @@ app.post('/db/data', function (req, res) {
                             "@timestamp": timestampToPass
                         }
                     }
-                } else {
-                    queryToPass = {
-                        match_all: {}
-                    }
-                }
+
+
+
+
+
+
+
+
                 client.search({
                     index: 'blockchain-data-timestamp',
                     type: 'gateway',

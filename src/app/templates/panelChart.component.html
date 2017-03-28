@@ -50,25 +50,25 @@
             <md-slider [(ngModel)]="leftValue" (input)=moveLeftSlider($event) [value]="leftValue"></md-slider>
             <div class="timeInputRow">
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="leftYearValue" mdInput placeholder="yyyy">
+                    <input [(ngModel)]="leftYearValue" mdInput placeholder="yyyy" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="leftMonthValue" mdInput placeholder="MM">
+                    <input [(ngModel)]="leftMonthValue" mdInput placeholder="MM" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="leftDayValue" mdInput placeholder="dd">
+                    <input [(ngModel)]="leftDayValue" mdInput placeholder="dd" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="leftHourValue" mdInput placeholder="HH">
+                    <input [(ngModel)]="leftHourValue" mdInput placeholder="HH" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input (keydown)="saveInput($event)" (keyup)="onInputChange($event)" [(ngModel)]="leftMinuteValue" mdInput placeholder="mm">
+                    <input (keydown)="saveInput($event)" (keyup)="onInputChange($event)" [(ngModel)]="leftMinuteValue" mdInput placeholder="mm" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="leftSecondValue" mdInput placeholder="ss">
+                    <input [(ngModel)]="leftSecondValue" mdInput placeholder="ss" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="leftMillisecondValue" mdInput placeholder="SSS">
+                    <input [(ngModel)]="leftMillisecondValue" mdInput placeholder="SSS" disabled="true">
                 </md-input-container>
             </div>
         </div>
@@ -77,25 +77,25 @@
             <md-slider [invert]="invertRightSlider" [(ngModel)]="rightValue" (input)=moveRightSlider($event) [value]="rightValue"></md-slider>
             <div class="timeInputRow">
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="rightYearValue" mdInput placeholder="yyyy">
+                    <input [(ngModel)]="rightYearValue" mdInput placeholder="yyyy" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="rightMonthValue" mdInput placeholder="MM">
+                    <input [(ngModel)]="rightMonthValue" mdInput placeholder="MM" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="rightDayValue" mdInput placeholder="dd">
+                    <input [(ngModel)]="rightDayValue" mdInput placeholder="dd" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="rightHourValue" mdInput placeholder="HH">
+                    <input [(ngModel)]="rightHourValue" mdInput placeholder="HH" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="rightMinuteValue" mdInput placeholder="mm">
+                    <input [(ngModel)]="rightMinuteValue" mdInput placeholder="mm" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="rightSecondValue" mdInput placeholder="ss">
+                    <input [(ngModel)]="rightSecondValue" mdInput placeholder="ss" disabled="true">
                 </md-input-container>
                 <md-input-container class="timeTextSearchCell">
-                    <input [(ngModel)]="rightMillisecondValue" mdInput placeholder="SSS">
+                    <input [(ngModel)]="rightMillisecondValue" mdInput placeholder="SSS" disabled="true">
                 </md-input-container>
             </div>
         </div>
