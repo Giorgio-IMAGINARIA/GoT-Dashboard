@@ -52,7 +52,6 @@ export class PanelChartComponent implements OnInit {
         }
     };
 
-
     constructor(private DbDataService: DbDataService) { }
     ngOnInit() {
         this.initialiseData();
@@ -67,28 +66,7 @@ export class PanelChartComponent implements OnInit {
         let currentDateMilliseconds: number = currentTimeLimitDate.getTime();
         lowerTimeMilliseconds = currentDateMilliseconds - this.lowerTimeLimitRadio;
         let lowerTimeLimitDate = new Date(lowerTimeMilliseconds);
-
-        let lowerFullDateObject = this.dateToString(lowerTimeLimitDate);
-        this.filter.timeFilter.startTime = lowerFullDateObject.fullDateString;
-        this.leftYearValue = lowerFullDateObject.yearString;
-        this.leftMonthValue = lowerFullDateObject.monthString;
-        this.leftDayValue = lowerFullDateObject.dayString;
-        this.leftHourValue = lowerFullDateObject.hourString;
-        this.leftMinuteValue = lowerFullDateObject.minuteString;
-        this.leftSecondValue = lowerFullDateObject.secondString;
-        this.leftMillisecondValue = lowerFullDateObject.millisecondString;
-
-        let currentFullDateObject = this.dateToString(currentTimeLimitDate);
-        this.filter.timeFilter.endTime = currentFullDateObject.fullDateString;
-        this.rightYearValue = currentFullDateObject.yearString;
-        this.rightMonthValue = currentFullDateObject.monthString;
-        this.rightDayValue = currentFullDateObject.dayString;
-        this.rightHourValue = currentFullDateObject.hourString;
-        this.rightMinuteValue = currentFullDateObject.minuteString;
-        this.rightSecondValue = currentFullDateObject.secondString;
-        this.rightMillisecondValue = currentFullDateObject.millisecondString;
-
-        console.log('filter: ', this.filter);
+        this.setTimeDetails('right', currentTimeLimitDate);
         this.DbDataService.sendRequest(this.filter);
     }
 
@@ -129,8 +107,6 @@ export class PanelChartComponent implements OnInit {
         return objectToReturn;
     }
 
-
-
     saveInput(event: any): void {
         console.log('old field value left minutes: ', event.target.value);
     }
@@ -141,20 +117,11 @@ export class PanelChartComponent implements OnInit {
         }, 2000, this.leftMinuteValue);
     }
 
-    private checkDate(percentage: number, slider: string): void {
-        let minimumTimeMilliseconds: number;
-        let currentTime = new Date();
-        let currentDateMilliseconds = currentTime.getTime();
-        minimumTimeMilliseconds = currentDateMilliseconds - this.lowerTimeLimitRadio;
-        let differenceMilliseconds = currentDateMilliseconds - minimumTimeMilliseconds;
-        let halfDifferenceTime = differenceMilliseconds / 2;
-        let percentageTime = (halfDifferenceTime * percentage) / 100;
+    private setTimeDetails(slider: string, selectedDate: any) {
+        let timeSelectedFullDateObject = this.dateToString(selectedDate);
         switch (slider) {
             case 'left':
                 {
-                    let timeSelected = minimumTimeMilliseconds + Math.floor(percentageTime);
-                    let timeSelectedDate = new Date(timeSelected);
-                    let timeSelectedFullDateObject = this.dateToString(timeSelectedDate);
                     this.filter.timeFilter.startTime = timeSelectedFullDateObject.fullDateString;
                     this.leftYearValue = timeSelectedFullDateObject.yearString;
                     this.leftMonthValue = timeSelectedFullDateObject.monthString;
@@ -167,9 +134,6 @@ export class PanelChartComponent implements OnInit {
                 break;
             case 'right':
                 {
-                    let timeSelected = currentDateMilliseconds - Math.floor(percentageTime);
-                    let timeSelectedDate = new Date(timeSelected);
-                    let timeSelectedFullDateObject = this.dateToString(timeSelectedDate);
                     this.filter.timeFilter.endTime = timeSelectedFullDateObject.fullDateString;
                     this.rightYearValue = timeSelectedFullDateObject.yearString;
                     this.rightMonthValue = timeSelectedFullDateObject.monthString;
@@ -185,8 +149,34 @@ export class PanelChartComponent implements OnInit {
         }
     }
 
+    private checkDate(percentage: number, slider: string): void {
+        let minimumTimeMilliseconds: number;
+        let currentTime = new Date();
+        let currentDateMilliseconds = currentTime.getTime();
+        minimumTimeMilliseconds = currentDateMilliseconds - this.lowerTimeLimitRadio;
+        let differenceMilliseconds = currentDateMilliseconds - minimumTimeMilliseconds;
+        let halfDifferenceTime = differenceMilliseconds / 2;
+        let percentageTime = (halfDifferenceTime * percentage) / 100;
+        let timeSelected: number;
+        switch (slider) {
+            case 'left':
+                {
+                    timeSelected = minimumTimeMilliseconds + Math.floor(percentageTime);
+                }
+                break;
+            case 'right':
+                {
+                    timeSelected = currentDateMilliseconds - Math.floor(percentageTime);
+                }
+                break;
+            default:
+                throw "error in slider case";
+        }
+        let timeSelectedDate = new Date(timeSelected);
+        this.setTimeDetails(slider, timeSelectedDate);
+    }
+
     radioGroupOnChange(event: any): void {
-        // console.log('radioGroupChanged-event-value:', event.value);
         switch (event.value) {
             case '1':
                 this.lowerTimeLimitRadio = 3600000;
@@ -207,7 +197,7 @@ export class PanelChartComponent implements OnInit {
     }
 
     modifyTimeWindow(): void {
-       if (this.leftSlideValue !== 0) {
+        if (this.leftSlideValue !== 0) {
             this.checkDate(this.leftSlideValue, 'left');
             if (this.rightValue !== 0) {
                 this.checkDate(this.rightValue, 'right');
@@ -222,43 +212,26 @@ export class PanelChartComponent implements OnInit {
 
     private resetTimeLimit(slider: string): void {
         let currentTimeLimitDate: any = new Date();
+        let dateToPass: any;
         switch (slider) {
             case 'left':
                 let lowerTimeMilliseconds: number;
                 let currentDateMilliseconds: number = currentTimeLimitDate.getTime();
                 lowerTimeMilliseconds = currentDateMilliseconds - this.lowerTimeLimitRadio;
                 let lowerTimeLimitDate = new Date(lowerTimeMilliseconds);
-
-                let lowerFullDateObject = this.dateToString(lowerTimeLimitDate);
-                this.filter.timeFilter.startTime = lowerFullDateObject.fullDateString;
-                this.leftYearValue = lowerFullDateObject.yearString;
-                this.leftMonthValue = lowerFullDateObject.monthString;
-                this.leftDayValue = lowerFullDateObject.dayString;
-                this.leftHourValue = lowerFullDateObject.hourString;
-                this.leftMinuteValue = lowerFullDateObject.minuteString;
-                this.leftSecondValue = lowerFullDateObject.secondString;
-                this.leftMillisecondValue = lowerFullDateObject.millisecondString;
+                dateToPass = lowerTimeLimitDate;
                 break;
             case 'right':
-                let currentFullDateObject = this.dateToString(currentTimeLimitDate);
-                this.filter.timeFilter.endTime = currentFullDateObject.fullDateString;
-                this.rightYearValue = currentFullDateObject.yearString;
-                this.rightMonthValue = currentFullDateObject.monthString;
-                this.rightDayValue = currentFullDateObject.dayString;
-                this.rightHourValue = currentFullDateObject.hourString;
-                this.rightMinuteValue = currentFullDateObject.minuteString;
-                this.rightSecondValue = currentFullDateObject.secondString;
-                this.rightMillisecondValue = currentFullDateObject.millisecondString;
+                dateToPass = currentTimeLimitDate;
                 break;
             default:
                 throw "resetTimeLimit - wrong value to case"
         }
+        this.setTimeDetails(slider, dateToPass);
     }
 
     moveLeftSlider(event: any) {
-        // console.log('moveLeftSlider', event);
         this.leftSlideValue = event.value;
-
         if (event.value !== 0) {
             this.checkDate(event.value, 'left');
             if (this.rightValue !== 0) {
@@ -269,12 +242,10 @@ export class PanelChartComponent implements OnInit {
         }
         console.log('filter: ', this.filter);
         this.DbDataService.sendRequest(this.filter);
-
     }
 
     moveRightSlider(event: any) {
         this.rightSlideValue = event.value;
-
         if (event.value !== 0) {
             this.checkDate(event.value, 'right');
             if (this.leftValue !== 0) {
@@ -285,14 +256,13 @@ export class PanelChartComponent implements OnInit {
         }
         console.log('filter: ', this.filter);
         this.DbDataService.sendRequest(this.filter);
-
     }
 
     private checkElasticDbService(): void {
         this.elasticDBServiceListener = this.DbDataService.activeElasticDbStateSubject.subscribe(
             response => {
                 if (response) {
-                    // console.log('the response for the elastic objects is abrustag: ', response);
+                    console.log('the response for the elastic objects is: ', response);
                     this.items = response;
                 } else {
                     console.log('no response for the elastic objects');
