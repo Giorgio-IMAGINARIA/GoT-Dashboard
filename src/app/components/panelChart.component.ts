@@ -16,7 +16,11 @@ import * as _ from "lodash";
 })
 export class PanelChartComponent implements OnInit {
 
-    lastMinimumTimeMilliseconds: number = null;
+    // 6 months in milliseconds
+    leftSlideValue: number = 0;
+    rightSlideValue: number = 0;
+
+    lowerTimeLimitRadio: number = 15778476000;
 
     minimumTimeLimit: number = null;
     maximumTimeLimit: number = null;
@@ -89,8 +93,7 @@ export class PanelChartComponent implements OnInit {
         let currentTime = new Date();
         let currentDateMilliseconds = currentTime.getTime();
         // 2 months ago below
-        let tempMinTimeMonthAgo = currentDateMilliseconds - 15778476000;
-        minimumTimeMilliseconds = tempMinTimeMonthAgo;
+        minimumTimeMilliseconds = currentDateMilliseconds - this.lowerTimeLimitRadio;
 
 
 
@@ -183,7 +186,73 @@ export class PanelChartComponent implements OnInit {
 
     }
 
+    radioGroupOnChange(event: any): void {
+        console.log('radioGroupChanged-event-value:', event.value);
+        switch (event.value) {
+            case '1':
+                this.lowerTimeLimitRadio = 3600000;
+                break;
+            case '2':
+                this.lowerTimeLimitRadio = 604800000;
+                break;
+            case '3':
+                this.lowerTimeLimitRadio = 2629746000;
+                break;
+            case '4':
+                this.lowerTimeLimitRadio = 15778476000;
+                break;
+            default:
+                throw "radioGroupOnChange - wrong value to case"
+        }
+        this.modifyTimeWindow();
+    }
+
+    modifyTimeWindow(): void {
+        if ((this.leftSlideValue === 0) && (this.rightSlideValue === 0)) {
+            this.minimumTimeLimit = null;
+            this.leftYearValue = null;
+            this.leftMonthValue = null;
+            this.leftDayValue = null;
+            this.leftHourValue = null;
+            this.leftMinuteValue = null;
+            this.leftSecondValue = null;
+            this.leftMillisecondValue = null;
+            this.maximumTimeLimit = null;
+            this.rightYearValue = null;
+            this.rightMonthValue = null;
+            this.rightDayValue = null;
+            this.rightHourValue = null;
+            this.rightMinuteValue = null;
+            this.rightSecondValue = null;
+            this.rightMillisecondValue = null;
+        } else if ((this.leftSlideValue !== 0) && (this.rightSlideValue === 0)) {
+            this.checkDate(this.leftSlideValue, 'left');
+            this.maximumTimeLimit = null;
+            this.rightYearValue = null;
+            this.rightMonthValue = null;
+            this.rightDayValue = null;
+            this.rightHourValue = null;
+            this.rightMinuteValue = null;
+            this.rightSecondValue = null;
+            this.rightMillisecondValue = null;
+        } else if ((this.leftSlideValue === 0) && (this.rightSlideValue !== 0)) {
+            this.checkDate(this.rightSlideValue, 'right');
+            this.minimumTimeLimit = null;
+            this.leftYearValue = null;
+            this.leftMonthValue = null;
+            this.leftDayValue = null;
+            this.leftHourValue = null;
+            this.leftMinuteValue = null;
+            this.leftSecondValue = null;
+            this.leftMillisecondValue = null;
+        } else {
+            // go on later
+        }
+        this.filterItems(this.unfilteredItems);
+    }
+
     moveLeftSlider(event: any) {
+        this.leftSlideValue = event.value;
         if (event.value !== 0) {
             this.checkDate(event.value, 'left');
             if (this.rightValue !== 0) {
@@ -203,6 +272,8 @@ export class PanelChartComponent implements OnInit {
     }
 
     moveRightSlider(event: any) {
+        this.rightSlideValue = event.value;
+
         if (event.value !== 0) {
             this.checkDate(event.value, 'right');
             if (this.leftValue !== 0) {
