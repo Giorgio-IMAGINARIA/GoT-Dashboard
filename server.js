@@ -38,28 +38,34 @@ app.post('/db/data', function (req, res) {
                 console.log('req.body.timeFilter', req.body.timeFilter);
                 var queryToPass;
 
-                 var timestampToPass;
-                    if (!req.body.timeFilter.startTime) {
-                        timestampToPass = {
-                            lt: req.body.timeFilter.endTime
-                        }
-                    } else if (!req.body.timeFilter.endTime) {
-                        console.log('req.body.timeFilter.startTime: ', req.body.timeFilter.startTime);
-                        timestampToPass = {
-                            gte: req.body.timeFilter.startTime
-                        }
-                    } else {
-                        timestampToPass = {
-                            gte: req.body.timeFilter.startTime,
-                            lt: req.body.timeFilter.endTime
-                        }
+                var timestampToPass;
+                if (!req.body.timeFilter.startTime) {
+                    timestampToPass = {
+                        lt: req.body.timeFilter.endTime
                     }
-                    queryToPass = {
-                        range: {
-                            "@timestamp": timestampToPass
-                        }
+                } else if (!req.body.timeFilter.endTime) {
+                    console.log('req.body.timeFilter.startTime: ', req.body.timeFilter.startTime);
+                    timestampToPass = {
+                        gte: req.body.timeFilter.startTime
                     }
+                } else {
+                    timestampToPass = {
+                        gte: req.body.timeFilter.startTime,
+                        lt: req.body.timeFilter.endTime
+                    }
+                }
 
+                queryToPass = {
+                    range: {
+                        "@timestamp": timestampToPass
+                    }
+                }
+
+                // queryToPass = {
+                //     query_string: {
+                //         query: "*1*"
+                //     }
+                // }
 
 
 

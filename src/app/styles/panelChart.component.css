@@ -1,60 +1,4 @@
-.timeTextSearchCell input {
-   color: #000;
-}
-.d3-chart {
-  width: 100%;
-  height: 400px;
-}
- 
-.d3-chart .axis path,
-.d3-chart .axis line {
-  stroke: #999;
-}
- 
-.d3-chart .axis text {
-  fill: #999;
-}
-.timeTextSearchCell{
-     flex-grow:1;
-}
-.timeSearchCellLeft{
-padding-right: 10%;
-}
-.timeSearchCellRight{
-padding-left: 10%;
-}
 
-.timeInputRow{
-    display:flex;
-}
-.timeSearchCell{
-    display:flex;
-    flex-direction: column;
-    width:50%;
-    justify-content: center;
-}
-.textSearchCell{
-    width:25%;
-}
-.searchRow, #timeSelectorRow{
-    padding:16px;
-    display:flex;
-}
-.searchRow{
-    justify-content: flex-end;
-}
-#timeSelectorRow{
-    justify-content: flex-start;
-    height:50px;
-        align-items: flex-end;
-}
-#timeSelectorTitle{
-    margin:0;
-    padding-right:40px;
-}
-md-radio-group > md-radio-button:not(:last-child){
-    padding-right:20px;
-}
 .simple-button{
     background-color: transparent;
     cursor: pointer;
@@ -110,7 +54,6 @@ md-radio-group > md-radio-button:not(:last-child){
 .inner-list-wrapper{
     display:flex;
     align-items: center;
-    /*justify-content: space-between;*/
 }
 .header-panel-left{
     display:flex;

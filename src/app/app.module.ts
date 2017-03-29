@@ -9,6 +9,7 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard.component';
 import { PanelChartComponent } from './components/panelChart.component';
+import { PanelControlsComponent } from './components/panelControls.component';
 import { DialogOverviewExampleDialog } from './components/dialogOverviewExampleDialog.component';
 // Directives
 // Services
@@ -28,7 +29,8 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     DashboardComponent,
-    PanelChartComponent
+    PanelChartComponent,
+    PanelControlsComponent
   ],
   providers: [
     DbDataService
