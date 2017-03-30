@@ -8,8 +8,10 @@ import { routing } from './app.routing';
 // Components
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard.component';
-import { PanelChartComponent } from './components/panelChart.component';
 import { PanelControlsComponent } from './components/panelControls.component';
+import { PanelChartListComponent } from './components/panelChartList.component';
+import { PanelChartRelationsComponent } from './components/panelChartRelations.component';
+import { PanelChartTimeComponent } from './components/panelChartTime.component';
 import { DialogOverviewExampleDialog } from './components/dialogOverviewExampleDialog.component';
 // Directives
 // Services
@@ -29,8 +31,10 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     DashboardComponent,
-    PanelChartComponent,
-    PanelControlsComponent
+    PanelControlsComponent,
+    PanelChartListComponent,
+    PanelChartRelationsComponent,
+    PanelChartTimeComponent
   ],
   providers: [
     DbDataService

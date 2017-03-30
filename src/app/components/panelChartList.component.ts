@@ -8,11 +8,11 @@ import { DbDataService } from '../services/db.data.service';
 
 
 @Component({
-    selector: 'panelChart',
-    templateUrl: '../templates/panelChart.component.html',
-    styleUrls: ['../styles/panelChart.component.css']
+    selector: 'panelChartList',
+    templateUrl: '../templates/panelChartList.component.html',
+    styleUrls: ['../styles/panelChartList.component.css']
 })
-export class PanelChartComponent implements OnInit {
+export class PanelChartListComponent implements OnInit {
 
     private elasticDBServiceListener: any;
     private items: Array<any> = null;

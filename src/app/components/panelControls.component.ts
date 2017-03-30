@@ -5,8 +5,6 @@ import { MdIconRegistry } from '@angular/material';
 import { MdDialog } from '@angular/material';
 //Services
 import { DbDataService } from '../services/db.data.service';
-//Libraries
-import * as _ from "lodash";
 
 
 @Component({
