@@ -1,0 +1,66 @@
+
+.simple-button{
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+      -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+    margin-right: 2%;
+}
+.simple-button:focus {
+  outline: none;
+}
+.simple-button:hover {
+  background-color: #eaeaea;
+
+}
+.simple-button:active {
+   background-color: #989898;
+}
+.cell-wrap{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.list-cell-10{
+  width:10%;
+}
+.list-cell-11{
+  width:11%;
+}
+.list-cell-30{
+  width:30%;
+}
+.list-cell-35{
+  width:35%;
+}
+.list-cell-25{
+  width:25%;
+}
+.list-cell-1{
+  width:1%;
+}
+
+.inner-list-wrapper{
+    display:flex;
+    align-items: center;
+}
+.header-panel-left{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.header-panel{
+    flex-grow: 1;
+}
+
+.header-panel-right{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+}

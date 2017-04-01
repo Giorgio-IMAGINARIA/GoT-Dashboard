@@ -1,0 +1,79 @@
+<md-card-header>
+
+    <div class="header-panel-left header-panel">
+        <md-card-title>List of the living</md-card-title>
+        <md-card-subtitle>A list of living villains</md-card-subtitle>
+    </div>
+
+
+    <div class="header-panel-right header-panel">
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+  <md-icon>more_vert</md-icon>
+</button>
+        <md-menu #menu="mdMenu">
+            <button md-menu-item>
+    <md-icon>dialpad</md-icon>
+    <span>Link-1</span>
+  </button>
+            <button md-menu-item disabled>
+    <md-icon>voicemail</md-icon>
+    <span>Link-2</span>
+  </button>
+            <button md-menu-item>
+    <md-icon>notifications_off</md-icon>
+    <span>Link-3</span>
+  </button>
+        </md-menu>
+    </div>
+
+</md-card-header>
+<md-card-content>
+ <md-list>
+        <md-list-item>
+            <div md-line>
+                <div class="inner-list-wrapper">
+                    <div class="cell-wrap list-cell-11">
+                        <button class="simple-button"><md-icon>keyboard_arrow_up</md-icon></button>
+                        <h4>Name</h4>
+                    </div>
+                    <h4 class="list-cell-1">|</h4>
+                    <div class="cell-wrap list-cell-35">
+                        <button class="simple-button"><md-icon>keyboard_arrow_up</md-icon></button>
+                        <h4>Wrongdoing</h4>
+                    </div>
+                    <h4 class="list-cell-1">|</h4>
+                    <div class="cell-wrap list-cell-10">
+                        <h4>Kill!</h4>
+                    </div>
+                    <h4 class="list-cell-1">|</h4>
+                    <div class="cell-wrap list-cell-30">
+                        <h4>Call Jaqen H’agar </h4>
+                    </div>
+                    <h4 class="list-cell-1">|</h4>
+                    <div class="cell-wrap list-cell-10">
+                        <h4>Timer</h4>
+                    </div>
+                </div>
+            </div>
+            <md-divider md-line></md-divider>
+        </md-list-item>
+        <md-list-item *ngFor="let listOfAliveVictim of listOfAliveVictims">
+            <div md-line>
+                <div class="inner-list-wrapper">
+                    <p class="cell-wrap list-cell-11">{{listOfAliveVictim.victimName}}</p>
+                    <p class="cell-wrap list-cell-1">|</p>
+                    <p class="cell-wrap list-cell-35">{{listOfAliveVictim.victimSin}}</p>
+                    <p class="cell-wrap list-cell-1">|</p>
+                    <p class="cell-wrap list-cell-10">kill</p>
+                    <p class="cell-wrap list-cell-1">|</p>
+                    <p class="cell-wrap list-cell-30">wrongdoing</p>
+                    <p class="cell-wrap list-cell-1">|</p>
+                    <p class="cell-wrap list-cell-10">timer</p>
+                </div>
+            </div>
+            <md-divider md-line></md-divider>
+
+        </md-list-item>
+
+    </md-list>
+</md-card-content>

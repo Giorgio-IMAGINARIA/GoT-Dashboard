@@ -26,33 +26,35 @@ export class DbDataService {
     }
 
     sendRequest(filter: any): void {
-        console.log('db.data.service response');
-        let addressToPass: string = '/db/data';
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let body = JSON.stringify(filter);
-        console.log('body:', body)
-        this.http.post(
-            addressToPass,
-            body,
-            options
-        ).subscribe((data: Response) => {
-            try {
-                console.log('here is the elasticData from service: ', data.json().elasticDBArray);
-                let elasticArrayDownloaded = data.json().elasticDBArray;
-                for (let i = 0; i < elasticArrayDownloaded.length; i++) {
-                    console.log('single elements: ', elasticArrayDownloaded[i]._source);
-                    let objectToChange = elasticArrayDownloaded[i]._source;
-                    Object.defineProperty(objectToChange, 'timestamp', Object.getOwnPropertyDescriptor(objectToChange, '@timestamp'));
-                    delete objectToChange['@timestamp'];
-                }
 
-                this.setElasticDbState(elasticArrayDownloaded);
-            }
-            catch (err) {
-                console.log(err);
-            }
-        });
+        // console.log('db.data.service response');
+        // let addressToPass: string = '/db/data';
+        // let headers = new Headers({ 'Content-Type': 'application/json' });
+        // let options = new RequestOptions({ headers: headers });
+        // let body = JSON.stringify(filter);
+        // console.log('body:', body)
+        // this.http.post(
+        //     addressToPass,
+        //     body,
+        //     options
+        // ).subscribe((data: Response) => {
+        //     try {
+        //         console.log('here is the elasticData from service: ', data.json().elasticDBArray);
+        //         let elasticArrayDownloaded = data.json().elasticDBArray;
+        //         for (let i = 0; i < elasticArrayDownloaded.length; i++) {
+        //             console.log('single elements: ', elasticArrayDownloaded[i]._source);
+        //             let objectToChange = elasticArrayDownloaded[i]._source;
+        //             Object.defineProperty(objectToChange, 'timestamp', Object.getOwnPropertyDescriptor(objectToChange, '@timestamp'));
+        //             delete objectToChange['@timestamp'];
+        //         }
+
+        //         this.setElasticDbState(elasticArrayDownloaded);
+        //     }
+        //     catch (err) {
+        //         console.log(err);
+        //     }
+        // });
+
     }
 
 }
