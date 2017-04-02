@@ -31,6 +31,7 @@ export class PanelControlsComponent {
         this.AriaDataService.addToLivingList(victimToAdd);
         this.victimName = '';
         this.victimSin = '';
+        this.addButtonDisabled = true;
     }
 
     onInputChange(event: any) {
