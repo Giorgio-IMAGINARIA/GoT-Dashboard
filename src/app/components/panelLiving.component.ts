@@ -58,7 +58,7 @@ export class PanelLivingComponent implements OnInit {
         console.log("slow id: ", id);
         if (this.jaqenCalls === 0) {
             for (let i = 0; i < this.listOfAliveVictims.length; i++) {
-                this.listOfAliveVictims[i].killSlowlyButtonDisabled=true;
+                this.listOfAliveVictims[i].killSlowlyButtonDisabled = true;
             }
         }
     }
@@ -70,51 +70,65 @@ export class PanelLivingComponent implements OnInit {
                     console.log('the living response from the service is: ', response);
                     let tempArray: Array<any> = [];
                     let found: boolean;
-                    if (!_.isEmpty(this.listOfAliveVictims)) {
-                        for (let i = 0; i < response.length; i++) {
-                            found = false;
-                            tempArray[i] = {
-                                id: '',
-                                victimName: '',
-                                victimSin: '',
-                                killButtonDisabled: false,
-                                killSlowlyButtonDisabled: false,
-                                timer: '-'
-                            }
-                            for (let k = 0; k < this.listOfAliveVictims.length; k++) {
-                                if (this.listOfAliveVictims[k].id === response[i].id) {
-                                    tempArray[i].id = this.listOfAliveVictims[k].id;
-                                    tempArray[i].victimName = this.listOfAliveVictims[k].victimName;
-                                    tempArray[i].victimSin = this.listOfAliveVictims[k].victimSin;
-                                    tempArray[i].killButtonDisabled = this.listOfAliveVictims[k].killButtonDisabled;
-                                    tempArray[i].killSlowlyButtonDisabled = this.listOfAliveVictims[k].killSlowlyButtonDisabled;
-                                    tempArray[i].timer = this.listOfAliveVictims[k].timer;
-                                    found = true;
-                                    break;
+                    let killSlowlyButtonDisabledToPass: boolean;
+                    if (this.jaqenCalls===0){
+                        killSlowlyButtonDisabledToPass = true;
+                    } else {
+                        killSlowlyButtonDisabledToPass = false;
+                    }
+
+
+
+                        if (!_.isEmpty(this.listOfAliveVictims)) {
+                            for (let i = 0; i < response.length; i++) {
+                                found = false;
+                                tempArray[i] = {
+                                    id: '',
+                                    victimName: '',
+                                    victimSin: '',
+                                    killButtonDisabled: false,
+                                    killSlowlyButtonDisabled: killSlowlyButtonDisabledToPass,
+                                    timer: '-'
+                                }
+                                for (let k = 0; k < this.listOfAliveVictims.length; k++) {
+                                    if (this.listOfAliveVictims[k].id === response[i].id) {
+                                        tempArray[i].id = this.listOfAliveVictims[k].id;
+                                        tempArray[i].victimName = this.listOfAliveVictims[k].victimName;
+                                        tempArray[i].victimSin = this.listOfAliveVictims[k].victimSin;
+                                        tempArray[i].killButtonDisabled = this.listOfAliveVictims[k].killButtonDisabled;
+                                        tempArray[i].killSlowlyButtonDisabled = this.listOfAliveVictims[k].killSlowlyButtonDisabled;
+                                        tempArray[i].timer = this.listOfAliveVictims[k].timer;
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                                if (!found) {
+                                    tempArray[i].id = response[i].id;
+                                    tempArray[i].victimName = response[i].victimName;
+                                    tempArray[i].victimSin = response[i].victimSin;
                                 }
                             }
-                            if (!found) {
-                                tempArray[i].id = response[i].id;
-                                tempArray[i].victimName = response[i].victimName;
-                                tempArray[i].victimSin = response[i].victimSin;
+                            this.listOfAliveVictims = tempArray;
+                        } else {
+                            for (let i = 0; i < response.length; i++) {
+                                this.listOfAliveVictims[i] = {
+                                    id: '',
+                                    victimName: '',
+                                    victimSin: '',
+                                    killButtonDisabled: false,
+                                    killSlowlyButtonDisabled: killSlowlyButtonDisabledToPass,
+                                    timer: '-'
+                                }
+                                this.listOfAliveVictims[i].id = response[i].id;
+                                this.listOfAliveVictims[i].victimName = response[i].victimName;
+                                this.listOfAliveVictims[i].victimSin = response[i].victimSin;
                             }
                         }
-                        this.listOfAliveVictims = tempArray;
-                    } else {
-                        for (let i = 0; i < response.length; i++) {
-                            this.listOfAliveVictims[i] = {
-                                id: '',
-                                victimName: '',
-                                victimSin: '',
-                                killButtonDisabled: false,
-                                killSlowlyButtonDisabled: false,
-                                timer: '-'
-                            }
-                            this.listOfAliveVictims[i].id = response[i].id;
-                            this.listOfAliveVictims[i].victimName = response[i].victimName;
-                            this.listOfAliveVictims[i].victimSin = response[i].victimSin;
-                        }
-                    }
+
+
+
+
+
 
                 } else {
                     console.log('no response for the living from the service');
