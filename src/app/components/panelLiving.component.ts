@@ -14,6 +14,7 @@ import * as _ from "lodash";
     styleUrls: ['../styles/panelLiving.component.css']
 })
 export class PanelLivingComponent implements OnInit {
+    private jaqenCalls: number = 3;
     private listOfAliveVictims: Array<any> = [];
 
     private AriaDataServiceListener: any;
@@ -32,16 +33,21 @@ export class PanelLivingComponent implements OnInit {
         this.AriaDataService.deleteToLivingList(id);
     }
     private killVictimSlowly(id: number): void {
+        this.jaqenCalls = this.jaqenCalls - 1;
+        for (let i = 0; i < this.listOfAliveVictims.length; i++) {
+            if (this.listOfAliveVictims[i].id === id) {
+                this.listOfAliveVictims[i].killButtonDisabled = true;
+                this.listOfAliveVictims[i].killSlowlyButtonDisabled = true;
+            }
+        }
         let timeGiven: number = Math.floor(Math.random() * 20) + 1;
 
         let timer = setInterval(function () {
-
             for (let i = 0; i < this.listOfAliveVictims.length; i++) {
                 if (this.listOfAliveVictims[i].id === id) {
                     this.listOfAliveVictims[i].timer = timeGiven;
                 }
             }
-
             console.log('timeGiven: ', timeGiven);
             timeGiven = timeGiven - 1;
             if (timeGiven < 0) {
@@ -50,6 +56,11 @@ export class PanelLivingComponent implements OnInit {
             }
         }.bind(this), 1000);
         console.log("slow id: ", id);
+        if (this.jaqenCalls === 0) {
+            for (let i = 0; i < this.listOfAliveVictims.length; i++) {
+                this.listOfAliveVictims[i].killSlowlyButtonDisabled=true;
+            }
+        }
     }
 
     private checkAriaDataService(): void {
@@ -59,17 +70,15 @@ export class PanelLivingComponent implements OnInit {
                     console.log('the living response from the service is: ', response);
                     let tempArray: Array<any> = [];
                     let found: boolean;
-
-
                     if (!_.isEmpty(this.listOfAliveVictims)) {
                         for (let i = 0; i < response.length; i++) {
-                            found=false;
+                            found = false;
                             tempArray[i] = {
                                 id: '',
                                 victimName: '',
                                 victimSin: '',
-                                killButtonEnabled: true,
-                                killSlowlyButtonEnabled: true,
+                                killButtonDisabled: false,
+                                killSlowlyButtonDisabled: false,
                                 timer: '-'
                             }
                             for (let k = 0; k < this.listOfAliveVictims.length; k++) {
@@ -77,6 +86,9 @@ export class PanelLivingComponent implements OnInit {
                                     tempArray[i].id = this.listOfAliveVictims[k].id;
                                     tempArray[i].victimName = this.listOfAliveVictims[k].victimName;
                                     tempArray[i].victimSin = this.listOfAliveVictims[k].victimSin;
+                                    tempArray[i].killButtonDisabled = this.listOfAliveVictims[k].killButtonDisabled;
+                                    tempArray[i].killSlowlyButtonDisabled = this.listOfAliveVictims[k].killSlowlyButtonDisabled;
+                                    tempArray[i].timer = this.listOfAliveVictims[k].timer;
                                     found = true;
                                     break;
                                 }
@@ -94,8 +106,8 @@ export class PanelLivingComponent implements OnInit {
                                 id: '',
                                 victimName: '',
                                 victimSin: '',
-                                killButtonEnabled: true,
-                                killSlowlyButtonEnabled: true,
+                                killButtonDisabled: false,
+                                killSlowlyButtonDisabled: false,
                                 timer: '-'
                             }
                             this.listOfAliveVictims[i].id = response[i].id;

@@ -62,9 +62,9 @@
                     <p class="cell-wrap list-cell-1">|</p>
                     <p class="cell-wrap list-cell-35">{{listOfAliveVictim.victimSin}}</p>
                     <p class="cell-wrap list-cell-1">|</p>
-                    <div class="cell-wrap list-cell-10"><button (click)="killVictim(listOfAliveVictim.id)" class="simple-button"><md-icon>close</md-icon></button></div>
+                    <div class="cell-wrap list-cell-10"><button [disabled]="listOfAliveVictim.killButtonDisabled" (click)="killVictim(listOfAliveVictim.id)" class="simple-button"><md-icon>close</md-icon></button></div>
                     <p class="cell-wrap list-cell-1">|</p>
-                    <div class="cell-wrap list-cell-30"><button (click)="killVictimSlowly(listOfAliveVictim.id)" class="simple-button"><md-icon>record_voice_over</md-icon></button></div>
+                    <div class="cell-wrap list-cell-30"><button [disabled]="listOfAliveVictim.killSlowlyButtonDisabled" (click)="killVictimSlowly(listOfAliveVictim.id)" class="simple-button"><md-icon>record_voice_over</md-icon></button></div>
                     <p class="cell-wrap list-cell-1">|</p>
                     <p class="cell-wrap list-cell-10">{{listOfAliveVictim.timer}}</p>
                 </div>
