@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MdIconRegistry } from '@angular/material';
 import { MdDialog } from '@angular/material';
 //Services
-import { DbDataService } from '../services/db.data.service';
+import { AriaDataService } from '../services/aria.data.service';
 
 
 @Component({
@@ -35,7 +35,7 @@ export class PanelDeadComponent implements OnInit {
     private elasticDBServiceListener: any;
     private items: Array<any> = null;
 
-    constructor(private DbDataService: DbDataService) { }
+    constructor(private AriaDataService: AriaDataService) { }
 
     ngOnInit() {
         this.checkElasticDbService();
@@ -46,16 +46,16 @@ export class PanelDeadComponent implements OnInit {
     }
 
     private checkElasticDbService(): void {
-        this.elasticDBServiceListener = this.DbDataService.activeElasticDbStateSubject.subscribe(
-            response => {
-                if (response) {
-                    console.log('the response for the elastic objects is: ', response);
-                    this.items = response;
-                } else {
-                    console.log('no response for the elastic objects');
-                }
-            },
-            error => console.log('Error! Description: ' + error)
-        );
+        // this.elasticDBServiceListener = this.AriaDataService.activeElasticDbStateSubject.subscribe(
+        //     response => {
+        //         if (response) {
+        //             console.log('the response for the elastic objects is: ', response);
+        //             this.items = response;
+        //         } else {
+        //             console.log('no response for the elastic objects');
+        //         }
+        //     },
+        //     error => console.log('Error! Description: ' + error)
+        // );
     }
 }

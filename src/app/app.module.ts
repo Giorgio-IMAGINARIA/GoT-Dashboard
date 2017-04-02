@@ -14,7 +14,7 @@ import { PanelLivingComponent } from './components/panelLiving.component';
 
 // Directives
 // Services
-import { DbDataService } from './services/db.data.service';
+import { AriaDataService } from './services/aria.data.service';
 
 // External modules
 import { MaterialModule } from '@angular/material';
@@ -35,7 +35,7 @@ import 'hammerjs';
     PanelControlsComponent
   ],
   providers: [
-    DbDataService
+    AriaDataService
   ],
   bootstrap: [AppComponent]
 })

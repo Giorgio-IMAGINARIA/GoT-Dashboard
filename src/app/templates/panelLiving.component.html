@@ -28,17 +28,15 @@
 
 </md-card-header>
 <md-card-content>
- <md-list>
+    <md-list>
         <md-list-item>
             <div md-line>
                 <div class="inner-list-wrapper">
                     <div class="cell-wrap list-cell-11">
-                        <button class="simple-button"><md-icon>keyboard_arrow_up</md-icon></button>
                         <h4>Name</h4>
                     </div>
                     <h4 class="list-cell-1">|</h4>
                     <div class="cell-wrap list-cell-35">
-                        <button class="simple-button"><md-icon>keyboard_arrow_up</md-icon></button>
                         <h4>Wrongdoing</h4>
                     </div>
                     <h4 class="list-cell-1">|</h4>
@@ -64,11 +62,11 @@
                     <p class="cell-wrap list-cell-1">|</p>
                     <p class="cell-wrap list-cell-35">{{listOfAliveVictim.victimSin}}</p>
                     <p class="cell-wrap list-cell-1">|</p>
-                    <p class="cell-wrap list-cell-10">kill</p>
+                    <div class="cell-wrap list-cell-10"><button (click)="killVictim(listOfAliveVictim.id)" class="simple-button"><md-icon>close</md-icon></button></div>
                     <p class="cell-wrap list-cell-1">|</p>
-                    <p class="cell-wrap list-cell-30">wrongdoing</p>
+                    <div class="cell-wrap list-cell-30"><button class="simple-button"><md-icon>record_voice_over</md-icon></button></div>
                     <p class="cell-wrap list-cell-1">|</p>
-                    <p class="cell-wrap list-cell-10">timer</p>
+                    <p class="cell-wrap list-cell-10">20</p>
                 </div>
             </div>
             <md-divider md-line></md-divider>

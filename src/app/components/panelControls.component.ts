@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdIconRegistry } from '@angular/material';
 //Services
-import { DbDataService } from '../services/db.data.service';
+import { AriaDataService } from '../services/aria.data.service';
 
 
 @Component({
@@ -19,10 +19,18 @@ export class PanelControlsComponent {
 
     private addButtonDisabled: boolean = true;
 
-    constructor(private DbDataService: DbDataService) { }
+    constructor(private AriaDataService: AriaDataService) { }
 
     private addVictim(): void {
         console.log('add the victim');
+        let victimToAdd: any = {
+            id: new Date().getTime(),
+            victimName: this.victimName,
+            victimSin: this.victimSin
+        };
+        this.AriaDataService.addToLivingList(victimToAdd);
+        this.victimName = '';
+        this.victimSin = '';
     }
 
     onInputChange(event: any) {
